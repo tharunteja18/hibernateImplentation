@@ -1,0 +1,24 @@
+image: openjdk:17-jdk-alpine
+
+before_script:
+  - chmod +x ./gradlew
+
+stages:
+  -build
+  -run
+
+
+gradle-build:
+  stage: build
+  script:
+    - echo "Building the Application..."
+    - ./gradlew clean build
+  artifacts:
+    paths:
+      - build/libs/
+
+gradle-run:
+  stage: run
+  script:
+    - echo "Running the Application..."
+    - java -jar build/libs/*.jar
